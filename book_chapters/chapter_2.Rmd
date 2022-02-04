@@ -1,0 +1,54 @@
+---
+title: "Chapter_2"
+author: "Kianté Fernandez"
+date: "2/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages}
+#install.packages("lobstr")
+library(lobstr)
+```
+
+```{r}
+x <- c(1,2,3)
+y <- x
+obj_addr(x)
+#> [1] "0x7fe11b31b1e8"
+obj_addr(y)
+#> [1] "0x7fe11b31b1e8"
+```
+
+```{r}
+a <- 1:10
+b <- a
+obj_addr(a)
+obj_addr(b)
+
+c <- b
+obj_addr(c)
+
+d <- 1:10
+obj_addr(d)
+```
+
+```{r}
+means <- list(
+  mean,
+  base::mean,
+  get("mean"),
+  evalq(mean),
+  match.fun("mean")
+)
+
+for (i in 1:5){
+  address <- obj_addr(means[[i]])
+  print(address)
+}
+make.names()
+```
+
