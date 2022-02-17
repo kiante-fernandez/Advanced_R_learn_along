@@ -1,0 +1,179 @@
+---
+title: "Chapter_3"
+author: "Kianté Fernandez"
+date: "2/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+class(c(1L, 5L, "F"))
+x <- data_frame(x  = 1:5,y = NA, a = 1:5)
+attributes(x)
+dim(x)
+x <- T
+x <- 1
+is.atomic(x)
+is.vector(x)
+is.numeric(x)
+```
+
+```{r}
+class(c(1, FALSE))
+class(c("a", 1))
+class(c(TRUE, 1L))
+
+class(c(FALSE, NA_character_))
+```
+
+```{r}
+x <- matrix(1:6, 2)
+str(attributes(x))
+length(x)
+nrow(x)
+ncol(x)
+
+x <- c(1:5)
+str(attributes(x)) #we get null why?
+
+x <- matrix(1:5)
+
+
+x <- c(a = 1, b = 2, c = 3)
+str(attributes(x))
+
+x <- 1:3
+names(x) <- c("a", "b", "c")
+str(attributes(x))
+x <- x %>% 
+  setNames( c("a", "b", "c"))
+str(attributes(x))
+unname()
+```
+
+```{r}
+x1 <- array(1:5, c(1, 1, 5))
+x2 <- array(1:5, c(1, 5, 1))
+x3 <- array(1:5, c(5, 1, 1))
+```
+
+
+```{r}
+foo <- structure(1:5, comment = "my attribute")
+#> [1] 1 2 3 4 5
+
+attributes(foo)
+foo <- foo + 1
+attr(foo, which = "comment")
+
+```
+
+
+```{r}
+ 
+sex_char <- c("m", "m", "m")
+sex_factor <- factor(sex_char, levels = c("m", "f"))
+
+table(sex_char)
+#> sex_char
+#> m 
+#> 3
+t <- table(sex_factor)
+#> sex_factor
+#> m f 
+#> 3 0
+t <- structure(t, comment = "my table")
+attributes(t)
+
+```
+
+```{r}
+grade <- ordered(c("b", "b", "a", "c"), levels = c("c", "b", "a"))
+grade
+attributes(grade)
+#> [1] b b a c
+#> Levels: c < b < a
+```
+
+```{r}
+f1 <- factor(letters)
+f1
+attributes(f1)
+f1[1]
+
+levels(f1) <- rev(levels(f1))
+attributes(f1)
+f1[1]
+f1
+
+
+f2 <- rev(factor(letters))
+f2
+attributes(f2)
+
+f3 <- factor(letters, levels = rev(letters))
+f3
+attributes(f3)
+
+```
+
+
+```{r}
+l <- list(list("pre"), list("male"), list("post"),list("female"))
+dim(l) <- c(2, 2)
+l
+names(l)
+#>      [,1]      [,2]
+#> [1,] Integer,3 TRUE
+#> [2,] "a"       1
+
+l[[1, 1]]
+#> [1] 1 2 3
+```
+
+```{r}
+x <- rnorm(100) + 10
+y <- x + rnorm(100)
+
+data_analysis <- tibble(
+  x <- rnorm(10) + 10,
+  y <- x + rnorm(10),
+  model <- list(broom::tidy(lm(y ~ x))),
+  z <- x - 10
+) %>% rownames_to_column("trials")
+
+
+attributes(data_analysis)
+```
+
+```{r}
+df <- data.frame(x = 1:3)
+df$y <- list(1:2, 1:3, 1:4)
+
+df_2 <- data.frame(
+  x = 1:3, 
+  y = I(list(1:2, 1:3, 1:4))
+)
+dfm <- data.frame(
+  x = 1:3 * 10
+)
+dfm$y <- matrix(1:9, nrow = 3)
+
+dfm$z <- matrix(1:9, nrow = 3)
+#>   x          y
+#> 1 1       1, 2
+#> 2 2    1, 2, 3
+#> 3 3 1, 2, 3, 4
+
+attributes(data.frame())
+as.matrix(df1 <- data.frame(x = 1.2:3L, y = T)
+)
+df <- data.frame(x = 1:3)
+t(df)
+class(t(t(df)))
+```
+
